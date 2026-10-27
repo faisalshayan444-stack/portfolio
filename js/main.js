@@ -3,11 +3,12 @@ import { initPortfolio } from './portfolio.js';
 // EDIT HERE: identity, availability, motion and optional social destinations.
 export const SETTINGS = {
   name: 'Shayan', city: 'Karachi', timezone: 'Asia/Karachi', email: 'faisalshayan444@gmail.com',
-  heroWord: 'Portfolio', preloaderDuration: 2.2, smoothDuration: 1.2,
+  heroWord: 'Design, on repeat.', heroLines: ['Design,','on repeat.'], preloaderDuration: 2.2, smoothDuration: 1.2,
   socials: { Instagram: null, Behance: null, LinkedIn: null }
 };
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-document.querySelector('.hero h1').textContent = SETTINGS.heroWord;
+document.querySelector('.hero h1 span').textContent = SETTINGS.heroLines[0];
+document.querySelector('.hero h1 em').textContent = SETTINGS.heroLines[1];
 const gsap = window.gsap;
 const ST = window.ScrollTrigger;
 if (gsap && ST) gsap.registerPlugin(ST, window.Flip);
@@ -102,7 +103,8 @@ document.querySelectorAll('.reveal-lines').forEach(heading => {
 if (gsap && ST && !reduced) {
   gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } })
     .to('.vinyl-stage', { scale: 1.4, yPercent: -30, ease: 'none' }, 0)
-    .to('.hero h1', { scaleX: 1.13, letterSpacing: '.01em', opacity: 0, yPercent: -30, ease: 'none' }, 0)
+    .to('.hero h1', { scaleX: 1.03, opacity: 0, yPercent: -20, ease: 'none' }, 0)
+    .to('.hero-description', { opacity: 0, yPercent: -20, ease: 'none' }, 0)
     .to('.hero-side, .hero-top-note, .hero-edition, .hero-bottom', { opacity: 0, ease: 'none' }, 0);
 }
 const themeObserver = new IntersectionObserver(entries => {
