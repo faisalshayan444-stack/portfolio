@@ -22,3 +22,6 @@
 @media(max-width:1000px) and (min-width:651px){.hero h1{font-size:11vw;width:53vw}.hero .vinyl-stage{width:58vw;height:58vw;left:74%}.hero-description{top:66%;font-size:13px}.hero .hero-side{top:76%}}
 @media(max-width:650px){.hero{height:94svh;min-height:740px}.hero h1{left:6vw;top:24%;width:88vw;transform:none;font-size:19vw;line-height:.87;letter-spacing:-.05em}.hero .vinyl-stage{width:83vw;height:83vw;left:54%;top:62%}.hero-description{display:none}.hero .hero-side{display:none}.hero .hero-top-note,.hero .hero-edition{top:101px}.hero .track-marker{font-size:9px}.case-gallery figure{max-height:none}.case-gallery img{max-height:none;object-fit:contain}.case-content{padding-bottom:45px}.case-brief{gap:24px}.case-header{padding-top:16px;padding-bottom:16px}}
 @media(max-width:375px){.hero h1{font-size:18.5vw}.hero .vinyl-stage{top:61%}.hero .hero-edition{font-size:7px}}
+/* Preserve intrinsic photo proportions in the mobile case viewer. */
+.case-hero{height:auto;aspect-ratio:auto}
+@media(max-width:650px){.case-hero{height:auto;aspect-ratio:auto;max-height:75svh}}
