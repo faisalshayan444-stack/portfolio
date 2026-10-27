@@ -29,7 +29,8 @@ document.addEventListener('portfolio:lock', e => lock(e.detail.reason, e.detail.
 function animateHero() {
   const title = document.querySelector('.hero h1');
   if (!gsap || reduced) return;
-  gsap.fromTo(title, { clipPath: 'inset(0 100% 0 -20%)', skewX: -8 }, { clipPath: 'inset(0 -20% 0 -20%)', skewX: 0, duration: 1.6, ease: 'power3.out' });
+  // Keep positioning in responsive CSS; only the reveal mask is animated.
+  gsap.fromTo(title, { clipPath: 'inset(0 100% 0 -20%)' }, { clipPath: 'inset(0 -20% 0 -20%)', duration: 1.6, ease: 'power3.out' });
   gsap.fromTo('.track-marker, .hero-side, .hero-top-note, .hero-edition', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 1.1, stagger: .08, ease: 'power3.out', clearProps: 'transform' });
 }
 async function preloader() {
@@ -101,8 +102,8 @@ document.querySelectorAll('.reveal-lines').forEach(heading => {
 
 if (gsap && ST && !reduced) {
   gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } })
-    .to('.vinyl-stage', { scale: 1.4, yPercent: -30, ease: 'none' }, 0)
-    .to('.hero h1', { scaleX: 1.08, opacity: 0, yPercent: -20, ease: 'none' }, 0)
+    .to('.vinyl-stage, .record-sleeve, .hero-story', { opacity: 0, ease: 'none' }, 0)
+    .to('.hero h1', { opacity: 0, ease: 'none' }, 0)
     .fromTo('.hero-side, .hero-top-note, .hero-edition, .hero-bottom', { opacity: 1 }, { opacity: 0, ease: 'none', immediateRender: false }, 0);
 }
 const themeObserver = new IntersectionObserver(entries => {

@@ -28,3 +28,23 @@
 @media(max-width:650px){.hero{height:91svh;min-height:650px;max-height:950px}.hero h1{left:50%;top:48%;width:max-content;transform:translate(-52%,-49%) rotate(-13deg);font-size:31vw;line-height:1.3;letter-spacing:-.055em}.hero .vinyl-stage{width:88vw;height:88vw;left:50%;top:49%}.hero .hero-side{display:block;top:69%;right:10vw}.hero .hero-side p{font-size:16px;margin-top:8px}.hero .hero-side .label{font-size:9px}.hero .hero-top-note,.hero .hero-edition{top:106px}.hero .track-marker{font-size:9px}.cursor-ring{display:none}}
 @media(max-width:375px){.hero h1{font-size:30.5vw}.hero .vinyl-stage{top:49%}.hero .hero-edition{font-size:7px}}
 
+/* Studio edition: a record emerging from a printed archival sleeve. */
+.hero .vinyl-stage{left:73%;top:42%;width:min(43vw,610px);height:min(43vw,610px);z-index:1}
+.hero-story{position:absolute;left:5vw;top:37%;z-index:3;width:36vw}
+.hero-story p{font:400 clamp(44px,4.9vw,83px)/.96 var(--serif);letter-spacing:-.045em}
+.hero-story em{font-weight:400}
+.hero-story>span{display:block;font-size:13px;line-height:1.7;color:#6b6b6b;margin-top:30px}
+.record-sleeve{position:absolute;left:66%;top:59%;width:min(33vw,470px);aspect-ratio:1;transform:translate(-50%,-50%) rotate(-8deg);z-index:2;background:linear-gradient(130deg,#fff 15%,#fefefe 62%,#f6f6f6);border:1px solid #e5e5e5;box-shadow:3px 20px 34px rgba(0,0,0,.1),inset -2px 0 3px rgba(0,0,0,.025);mask:radial-gradient(circle at 50% 0,transparent 0 17px,#000 18px)}
+.record-sleeve span{position:absolute;font:500 8px/1.6 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#625f59}
+.sleeve-edition{left:7%;top:8%}
+.sleeve-category{left:7%;bottom:8%}
+.sleeve-number{right:7%;bottom:8%;text-align:right}
+.record-sleeve i{position:absolute;left:7%;right:7%;bottom:16%;height:1px;background:var(--hairline)}
+.hero h1{left:66%;top:58%;font-size:clamp(100px,14vw,220px);transform:translate(-50%,-50%) rotate(-8deg);padding:0 .1em .08em;z-index:4}
+.hero .hero-side{display:none}
+.hero .track-marker{font-size:9px;opacity:.6}
+.hero .orbit{animation-duration:200s}
+@media(min-width:1600px){.hero-story{left:8vw}.hero h1{left:66%}}
+@media(max-width:1000px) and (min-width:651px){.hero .vinyl-stage{left:75%;top:43%;width:49vw;height:49vw}.record-sleeve{left:68%;top:59%;width:37vw}.hero h1{left:68%;top:58%;font-size:16vw}.hero-story{width:37vw;top:38%}.hero-story p{font-size:5.5vw}.hero-story>span{font-size:12px}}
+@media(max-width:650px){.hero{height:96svh;min-height:780px;max-height:1000px}.hero-story{left:6vw;top:20%;width:88vw}.hero-story p{font-size:12vw;line-height:.93}.hero-story>span{display:none}.hero .vinyl-stage{left:62%;top:49%;width:77vw;height:77vw}.record-sleeve{left:49%;top:64%;width:62vw}.hero h1{left:49%;top:64%;font-size:27vw;transform:translate(-50%,-50%) rotate(-8deg);padding:0 .1em .08em}.hero .hero-side{display:none}.record-sleeve span{font-size:6px;letter-spacing:.12em}.record-sleeve{mask:radial-gradient(circle at 50% 0,transparent 0 12px,#000 13px)}.hero .hero-top-note,.hero .hero-edition{top:99px}.hero .track-marker{font-size:8px}}
+@media(max-width:375px){.hero-story p{font-size:12vw}.hero .vinyl-stage{top:49%}.hero h1{font-size:27vw}}
