@@ -1,6 +1,6 @@
 # Shayan — A portfolio, on repeat.
 
-A complete, buildless portfolio for Shayan, a graphic designer based in Karachi. The asymmetric hero pairs a graphite record and champagne label with editorial typography on pure white. Eight real campaign concepts from this conversation populate the site, with optimised WebP artwork, full-screen case studies and a downloadable nine-page PDF.
+A complete, buildless portfolio for Shayan, a graphic designer based in Karachi. The signature hero pairs a rose vinyl record with flowing Portfolio calligraphy on pure white. Eight real campaign concepts from this conversation populate the site, with optimised WebP artwork, full-screen case studies and a downloadable nine-page PDF.
 
 ## Run locally
 
@@ -43,8 +43,8 @@ The published directory is `dist/`, assembled from the same complete static file
 ## Your five main settings
 
 1. **Palette:** the variables at the beginning of `css/styles.css` control white, ink, rose, gold and the light/dark section system.
-2. **Hero word:** change `SETTINGS.heroLines` in `js/main.js`. Change the initial `<h1>` in `index.html` too for a matching no-JavaScript view.
-3. **Vinyl colour:** change `HERO.color` at the beginning of `js/hero3d.js`. Update the graphite stops in `assets/images/vinyl.svg` to match the static fallback.
+2. **Hero word:** change `SETTINGS.heroWord` in `js/main.js`. Change the initial `<h1>` in `index.html` too for a matching no-JavaScript view.
+3. **Vinyl colour:** change `HERO.color` at the beginning of `js/hero3d.js`. Update the rose stops in `assets/images/vinyl.svg` to match the static fallback.
 4. **Marquee copy:** edit both identical spans inside `.marquee-track` in `index.html`, plus the accessible services label on the parent.
 5. **Project data:** edit the exported `projects` array in `js/portfolio.js`. Images are resolved from `assets/work/` using the filename without `.webp`. Keep `js/image-sizes.js` in sync with replacement image sizes.
 
@@ -85,4 +85,5 @@ Performance scores depend on hosting, device, connection and browser; Lighthouse
 ## Included source and artwork
 
 Every working source file is included in full. The site itself uses native HTML, CSS and ES modules. SVG identity artwork is editable in vector tools. Campaign images are raster assets; image text and photography are not separate design layers. The PDF is a compact portfolio handout, not an editable slide deck.
+
 

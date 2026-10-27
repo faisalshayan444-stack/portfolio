@@ -3,12 +3,11 @@ import { initPortfolio } from './portfolio.js';
 // EDIT HERE: identity, availability, motion and optional social destinations.
 export const SETTINGS = {
   name: 'Shayan', city: 'Karachi', timezone: 'Asia/Karachi', email: 'faisalshayan444@gmail.com',
-  heroWord: 'Design, on repeat.', heroLines: ['Design,','on repeat.'], preloaderDuration: 2.2, smoothDuration: 1.2,
+  heroWord: 'Portfolio', preloaderDuration: 2.2, smoothDuration: 1.2,
   socials: { Instagram: null, Behance: null, LinkedIn: null }
 };
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-document.querySelector('.hero h1 span').textContent = SETTINGS.heroLines[0];
-document.querySelector('.hero h1 em').textContent = SETTINGS.heroLines[1];
+document.querySelector('.hero h1').textContent = SETTINGS.heroWord;
 const gsap = window.gsap;
 const ST = window.ScrollTrigger;
 if (gsap && ST) gsap.registerPlugin(ST, window.Flip);
@@ -31,7 +30,7 @@ function animateHero() {
   const title = document.querySelector('.hero h1');
   if (!gsap || reduced) return;
   gsap.fromTo(title, { clipPath: 'inset(0 100% 0 -20%)', skewX: -8 }, { clipPath: 'inset(0 -20% 0 -20%)', skewX: 0, duration: 1.6, ease: 'power3.out' });
-  gsap.from('.track-marker, .hero-side, .hero-top-note, .hero-edition', { opacity: 0, y: 10, duration: 1.1, stagger: .08, ease: 'power3.out', clearProps: 'opacity,transform' });
+  gsap.fromTo('.track-marker, .hero-side, .hero-top-note, .hero-edition', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 1.1, stagger: .08, ease: 'power3.out', clearProps: 'transform' });
 }
 async function preloader() {
   let seen = false;
@@ -103,9 +102,8 @@ document.querySelectorAll('.reveal-lines').forEach(heading => {
 if (gsap && ST && !reduced) {
   gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } })
     .to('.vinyl-stage', { scale: 1.4, yPercent: -30, ease: 'none' }, 0)
-    .to('.hero h1', { scaleX: 1.03, opacity: 0, yPercent: -20, ease: 'none' }, 0)
-    .to('.hero-description', { opacity: 0, yPercent: -20, ease: 'none' }, 0)
-    .to('.hero-side, .hero-top-note, .hero-edition, .hero-bottom', { opacity: 0, ease: 'none' }, 0);
+    .to('.hero h1', { scaleX: 1.08, opacity: 0, yPercent: -20, ease: 'none' }, 0)
+    .fromTo('.hero-side, .hero-top-note, .hero-edition, .hero-bottom', { opacity: 1 }, { opacity: 0, ease: 'none', immediateRender: false }, 0);
 }
 const themeObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -135,16 +133,19 @@ if (!reduced) requestAnimationFrame(moveMarquee);
 
 function initCursor() {
   if (!matchMedia('(hover: hover) and (pointer: fine)').matches || reduced) return;
-  const dot = document.querySelector('.cursor-dot'), ring = document.querySelector('.cursor-ring');
+  const ring = document.querySelector('.cursor-ring');
   let x = -100, y = -100, rx = x, ry = y, visible = false;
   document.addEventListener('pointermove', e => {
-    x = e.clientX; y = e.clientY; visible = true;
-    dot.style.opacity = ring.style.opacity = '1'; dot.style.left = `${x}px`; dot.style.top = `${y}px`;
+    x = e.clientX; y = e.clientY;
     const view = !!e.target.closest('.project-open');
-    ring.classList.toggle('is-view', view); ring.classList.toggle('is-link', !view && !!e.target.closest('a,button'));
+    if (view && !visible) { rx = x; ry = y; ring.style.left = `${x}px`; ring.style.top = `${y}px`; }
+    visible = view;
+    ring.style.opacity = view ? '1' : '0';
+    ring.classList.toggle('is-view', view);
     ring.querySelector('span').textContent = view ? 'VIEW' : '';
   });
-  document.addEventListener('pointerleave', () => { visible = false; dot.style.opacity = ring.style.opacity = '0'; });
+  document.addEventListener('pointerleave', () => { visible = false; ring.style.opacity = '0'; });
+  window.addEventListener('blur', () => { visible = false; ring.style.opacity = '0'; });
   function tick() { if (visible) { rx += (x - rx) * .15; ry += (y - ry) * .15; ring.style.left = `${rx}px`; ring.style.top = `${ry}px`; } requestAnimationFrame(tick); } tick();
 }
 function initMagnetism() {

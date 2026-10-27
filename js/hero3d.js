@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 // EDIT HERE: record tint, rotational speed, mouse response, rendering budget.
-const HERO = { color: '#191b1c', degreesPerSecond: 3, damping: .06, pixelRatio: 2 };
+const HERO = { color: '#F2A7C3', degreesPerSecond: 3, damping: .06, pixelRatio: 2 };
 export function initHero() {
   const canvas = document.querySelector('#vinyl-canvas');
   const host = document.querySelector('.vinyl-stage');
@@ -12,7 +12,7 @@ export function initHero() {
   renderer.setPixelRatio(Math.min(devicePixelRatio, HERO.pixelRatio));
   renderer.setClearColor(0x000000, 0);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.1;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = .85;
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(35, 1, .1, 30); camera.position.z = 5.8;
   const pmrem = new THREE.PMREMGenerator(renderer);
@@ -20,7 +20,7 @@ export function initHero() {
   scene.environment = environment.texture; room.dispose(); pmrem.dispose();
   scene.add(new THREE.HemisphereLight(0xffffff, 0x79605b, 1.2));
   const key = new THREE.DirectionalLight(0xfff6ef, 2); key.position.set(-3, 4, 5); scene.add(key);
-  const fill = new THREE.DirectionalLight(0xf5ecdd, .8); fill.position.set(4, -2, 3); scene.add(fill);
+  const fill = new THREE.DirectionalLight(0xffcddd, .5); fill.position.set(4, -2, 3); scene.add(fill);
   const group = new THREE.Group(); scene.add(group);
   const spinner = new THREE.Group(); group.add(spinner);
   // The bump map models hundreds of shallow grooves without heavy geometry.
@@ -30,17 +30,17 @@ export function initHero() {
   const bump = new THREE.CanvasTexture(grooveCanvas); bump.anisotropy = Math.min(4, renderer.capabilities.getMaxAnisotropy());
   const surfaceCanvas = document.createElement('canvas'); surfaceCanvas.width = surfaceCanvas.height = 2048;
   const surface = surfaceCanvas.getContext('2d'); surface.fillStyle = HERO.color; surface.fillRect(0,0,2048,2048);
-  for (let r=300;r<1020;r+=3.4) { surface.strokeStyle = r%13<5 ? 'rgba(0,0,0,.5)' : 'rgba(215,216,212,.14)'; surface.lineWidth = .8; surface.beginPath(); surface.arc(1024,1024,r,0,Math.PI*2); surface.stroke(); }
+  for (let r=300;r<1020;r+=3.4) { surface.strokeStyle = r%13<5 ? 'rgba(145,40,93,.2)' : 'rgba(255,231,243,.3)'; surface.lineWidth = .8; surface.beginPath(); surface.arc(1024,1024,r,0,Math.PI*2); surface.stroke(); }
   const tint = new THREE.CanvasTexture(surfaceCanvas); tint.colorSpace = THREE.SRGBColorSpace;
-  const vinylMaterial = new THREE.MeshPhysicalMaterial({ color: '#ffffff', map:tint, roughness: .3, metalness: .35, transmission: 0, thickness: .08, clearcoat: 1, clearcoatRoughness: .22, bumpMap: bump, bumpScale: .035, side: THREE.DoubleSide, envMapIntensity: 1.4 });
+  const vinylMaterial = new THREE.MeshPhysicalMaterial({ color: '#f6b0d0', map:tint, roughness: .32, metalness: .05, transmission: .08, thickness: .08, clearcoat: .6, clearcoatRoughness: .3, iridescence: .06, iridescenceIOR: 1.2, bumpMap: bump, bumpScale: .035, side: THREE.DoubleSide, envMapIntensity: .6 });
   const face = new THREE.Mesh(new THREE.RingGeometry(.053, 1.55, 160), vinylMaterial); spinner.add(face);
   const edge = new THREE.Mesh(new THREE.CylinderGeometry(1.55,1.55,.024,160,1,true),vinylMaterial);
   edge.rotation.x = Math.PI/2; edge.position.z = -.012; spinner.add(edge);
-  const rim = new THREE.Mesh(new THREE.TorusGeometry(1.545, .006, 8, 160), new THREE.MeshPhysicalMaterial({ color: '#bca77a', roughness: .3, metalness: .8, clearcoat: 1 })); spinner.add(rim);
+  const rim = new THREE.Mesh(new THREE.TorusGeometry(1.545, .013, 8, 160), new THREE.MeshPhysicalMaterial({ color: HERO.color, roughness: .25, metalness: .15, clearcoat: 1 })); spinner.add(rim);
   const labelCanvas = document.createElement('canvas'); labelCanvas.width = labelCanvas.height = 512;
-  const lc = labelCanvas.getContext('2d'); lc.fillStyle = '#c4b28d'; lc.fillRect(0, 0, 512, 512);
-  lc.strokeStyle = '#8e7d5d'; lc.lineWidth = 2; lc.beginPath(); lc.arc(256, 256, 227, 0, Math.PI * 2); lc.stroke();
-  lc.fillStyle = '#292622'; lc.textAlign = 'center'; lc.font = '15px Arial'; lc.fillText('S H A Y A N', 256, 148); lc.font = '10px Arial'; lc.fillText('SIDE A    •    SELECTED WORKS', 256, 365); lc.fillText('33⅓ RPM  /  2026', 256, 390);
+  const lc = labelCanvas.getContext('2d'); lc.fillStyle = '#272324'; lc.fillRect(0, 0, 512, 512);
+  lc.strokeStyle = '#665455'; lc.lineWidth = 2; lc.beginPath(); lc.arc(256, 256, 227, 0, Math.PI * 2); lc.stroke();
+  lc.fillStyle = '#d1b2ad'; lc.textAlign = 'center'; lc.font = '15px Arial'; lc.fillText('S H A Y A N', 256, 148); lc.font = '10px Arial'; lc.fillText('SIDE A    •    SELECTED WORKS', 256, 365); lc.fillText('33⅓ RPM  /  2026', 256, 390);
   const labelTexture = new THREE.CanvasTexture(labelCanvas); labelTexture.colorSpace = THREE.SRGBColorSpace;
   const label = new THREE.Mesh(new THREE.RingGeometry(.053, .46, 96), new THREE.MeshStandardMaterial({ map: labelTexture, roughness: .7, metalness: .02 })); label.position.z = .012; spinner.add(label);
   const inner = new THREE.Mesh(new THREE.RingGeometry(.053, .077, 64), new THREE.MeshStandardMaterial({ color: '#b5a6a7', metalness: .65, roughness: .4 })); inner.position.z = .018; spinner.add(inner);
@@ -53,8 +53,8 @@ export function initHero() {
   function render(t) {
     frame = 0; if (!visible || document.hidden) return;
     const dt = Math.min((t - (last || t)) / 1000, .05); last = t; elapsed += dt;
-    const tx = .12 + (fine ? -pointer.y : Math.sin(elapsed * .22) * .055);
-    const ty = -.18 + (fine ? pointer.x : Math.cos(elapsed * .17) * .07);
+    const tx = fine ? -pointer.y : Math.sin(elapsed * .22) * .055;
+    const ty = fine ? pointer.x : Math.cos(elapsed * .17) * .07;
     group.rotation.x += (tx - group.rotation.x) * HERO.damping;
     group.rotation.y += (ty - group.rotation.y) * HERO.damping;
     group.position.y = Math.sin(elapsed * .6) * .018;
