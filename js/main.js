@@ -1,14 +1,19 @@
 import { initPortfolio } from './portfolio.js';
+import { signatureMarkup } from './signature.js';
 
 // EDIT HERE: identity, availability, motion and optional social destinations.
 export const SETTINGS = {
   name: 'Shayan', city: 'Karachi', timezone: 'Asia/Karachi', email: 'faisalshayan444@gmail.com',
-  heroWord: 'Portfolio', signatureDuration: 4.2, preloaderDuration: 2.2, smoothDuration: 1.2,
+  heroWord: 'Portfolio', signatureDuration: 5.4, preloaderDuration: 2.2, smoothDuration: 1.2,
   socials: { Instagram: null, Behance: null, LinkedIn: null }
 };
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-document.querySelector('.hero h1').textContent = SETTINGS.heroWord;
-if (!reduced) document.querySelector('.hero h1').style.clipPath = 'inset(0 100% 0 -20%)';
+const signatureTitle = document.querySelector('.hero h1');
+signatureTitle.setAttribute('aria-label', SETTINGS.heroWord);
+signatureTitle.innerHTML = signatureMarkup;
+if (!reduced) signatureTitle.querySelectorAll('.signature-pen').forEach(path => {
+  path.style.strokeDashoffset = '1'; path.style.visibility = 'hidden';
+});
 const gsap = window.gsap;
 const ST = window.ScrollTrigger;
 if (gsap && ST) gsap.registerPlugin(ST);
@@ -35,11 +40,23 @@ document.addEventListener('portfolio:scroll-adjust', e => {
 
 function animateHero() {
   const title = document.querySelector('.hero h1');
-  if (!gsap || reduced) { title.style.clipPath = ''; return Promise.resolve(); }
-  // Keep positioning in responsive CSS; only the reveal mask is animated.
-  title.style.willChange = 'clip-path';
+  const strokes = [...title.querySelectorAll('.signature-pen')];
+  if (!gsap || reduced) {
+    strokes.forEach(path => { path.style.strokeDashoffset = '0'; path.style.visibility = 'visible'; });
+    return Promise.resolve();
+  }
+  // Filled letterforms are revealed by their own curved pen-centre trajectories.
+  const weights = strokes.map(path => Math.max(18, Math.pow(path.getTotalLength(), .75)));
+  const total = weights.reduce((sum, weight) => sum + weight, 0);
   return new Promise(resolve => {
-    gsap.fromTo(title, { clipPath: 'inset(0 100% 0 -20%)' }, { clipPath: 'inset(0 -20% 0 -20%)', duration: SETTINGS.signatureDuration, ease: 'power1.inOut', clearProps: 'clipPath,willChange', onComplete: resolve });
+    const writing = gsap.timeline({ onComplete: () => {
+      title.querySelectorAll('.signature-letter').forEach(letter => letter.removeAttribute('mask'));
+      resolve();
+    } });
+    strokes.forEach((path, i) => {
+      writing.set(path, { visibility: 'visible' });
+      writing.to(path, { strokeDashoffset: 0, duration: SETTINGS.signatureDuration * weights[i] / total, ease: 'none' });
+    });
     gsap.fromTo('.track-marker, .hero-side, .hero-top-note, .hero-edition', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 1.1, stagger: .08, ease: 'power3.out', clearProps: 'transform' });
   });
 }
@@ -110,12 +127,28 @@ document.querySelectorAll('.reveal-lines').forEach(heading => {
   if (gsap && ST && !reduced) gsap.from(heading.querySelectorAll('.line-inner'), { yPercent: 110, duration: 1.15, stagger: .08, ease: 'power4.out', scrollTrigger: { trigger: heading, start: 'top 88%', once: true } });
 });
 
-if (gsap && ST && !reduced) {
-  gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } })
-    .to('.vinyl-stage, .record-sleeve, .hero-story', { opacity: 0, ease: 'none' }, 0)
-    .to('.hero h1', { opacity: 0, ease: 'none' }, 0)
-    .fromTo('.hero-side, .hero-top-note, .hero-edition, .hero-bottom', { opacity: 1 }, { opacity: 0, ease: 'none', immediateRender: false }, 0);
+// Derive the whole hero's visibility from its current position, never a cached
+// animation start value. Intro animations only control elements inside this layer.
+const hero = document.querySelector('.hero');
+let heroVisibilityQueued = false;
+function updateHeroVisibility() {
+  heroVisibilityQueued = false;
+  if (reduced) { hero.style.removeProperty('--hero-visibility'); return; }
+  const bounds = hero.getBoundingClientRect();
+  const progress = Math.max(0, Math.min(1, -bounds.top / Math.max(1, bounds.height * .85)));
+  hero.style.setProperty('--hero-visibility', String(1 - progress));
 }
+function scheduleHeroVisibility() {
+  if (heroVisibilityQueued) return;
+  heroVisibilityQueued = true;
+  requestAnimationFrame(updateHeroVisibility);
+}
+window.addEventListener('scroll', scheduleHeroVisibility, { passive: true });
+window.addEventListener('resize', scheduleHeroVisibility, { passive: true });
+window.addEventListener('pageshow', updateHeroVisibility);
+document.addEventListener('visibilitychange', scheduleHeroVisibility);
+ST?.addEventListener('refresh', scheduleHeroVisibility);
+updateHeroVisibility();
 const themeObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) document.body.dataset.theme = entry.target.id === 'work' ? 'dark' : 'light';
@@ -142,15 +175,6 @@ function initCursor() {
   window.addEventListener('blur', () => { visible = false; ring.style.opacity = '0'; });
   function tick() { if (visible) { rx += (x - rx) * .15; ry += (y - ry) * .15; ring.style.left = `${rx}px`; ring.style.top = `${ry}px`; } requestAnimationFrame(tick); } tick();
 }
-function initMagnetism() {
-  if (!gsap || reduced || !matchMedia('(pointer:fine)').matches) return;
-  document.querySelectorAll('.magnetic,.email-button,.menu-toggle,.view-toggle').forEach(button => {
-    const xTo = gsap.quickTo(button, 'x', { duration: .55, ease: 'power3.out' });
-    const yTo = gsap.quickTo(button, 'y', { duration: .55, ease: 'power3.out' });
-    button.addEventListener('pointermove', e => { const r = button.getBoundingClientRect(); xTo(Math.max(-40, Math.min(40, (e.clientX - r.left - r.width / 2) * .15))); yTo(Math.max(-40, Math.min(40, (e.clientY - r.top - r.height / 2) * .2))); });
-    button.addEventListener('pointerleave', () => { xTo(0); yTo(0); });
-  });
-}
 function updateClock() {
   const now = new Date();
   document.querySelector('#local-clock').textContent = new Intl.DateTimeFormat('en-GB', { timeZone: SETTINGS.timezone, hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(now);
@@ -163,13 +187,9 @@ for (const [label, url] of Object.entries(SETTINGS.socials)) {
   if (!url || !/^https:\/\//.test(url)) continue;
   const link = document.createElement('a'); link.textContent = label; link.href = url; link.target = '_blank'; link.rel = 'noopener noreferrer'; details.append(link);
 }
-initPortfolio({ gsap, ST, reduced }); initCursor(); initMagnetism(); updateClock(); setInterval(updateClock, 1000);
+initPortfolio({ gsap, ST, reduced }); initCursor(); updateClock(); setInterval(updateClock, 1000);
 async function startExperience() {
-  // Font swaps and shader compilation must not interrupt the signature reveal.
-  if (document.fonts) await Promise.race([
-    document.fonts.load('160px "Pinyon Script"', SETTINGS.heroWord).catch(() => {}),
-    new Promise(resolve => setTimeout(resolve, 3000))
-  ]);
+  // The local vector signature has no web-font dependency or layout swap.
   await preloader();
   if (reduced) return;
   const loadRecord = () => import('./hero3d.js').then(m => m.initHero()).catch(() => document.documentElement.classList.add('webgl-unavailable'));

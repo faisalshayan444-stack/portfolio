@@ -43,7 +43,7 @@ The published directory is `dist/`, assembled from the same complete static file
 ## Your five main settings
 
 1. **Palette:** the variables at the beginning of `css/styles.css` control white, ink, rose, gold and the light/dark section system.
-2. **Hero word:** change `SETTINGS.heroWord` in `js/main.js`. Change the initial `<h1>` in `index.html` too for a matching no-JavaScript view.
+2. **Signature:** the lettering is actual vector pen paths. To change the word, edit `WORD` in `scripts/create-signature.py`, regenerate the SVG and JS asset, then update `SETTINGS.heroWord` and the HTML heading label. The optional generator uses Pillow, NumPy and fontTools. The font and its OFL license are in `assets/fonts/`. No generation is needed to run the finished site.
 3. **Vinyl colour:** change `HERO.color` at the beginning of `js/hero3d.js`. Update the rose stops in `assets/images/vinyl.svg` to match the static fallback.
 4. **Hero copy:** edit `.hero-story` in `index.html` to update the editorial statement beside the record sleeve.
 5. **Project data:** edit the exported `projects` array in `js/portfolio.js`. Images are resolved from `assets/work/` using the filename without `.webp`. Keep `js/image-sizes.js` in sync with replacement image sizes.
@@ -69,7 +69,7 @@ All projects are identified as **independent concepts**. The campaign review fig
 - The gallery stays in normal page flow, with native sideways scrolling, keyboard focus and previous/next arrows. Mobile also supports swiping.
 - Reduced-motion visitors receive the static SVG vinyl, instant reveals, no preloader, no parallax.
 - If WebGL or its CDN fails, the static record remains visible. If animation libraries fail, the core content, gallery, filters, menu and email links still work.
-- The signature reveal lasts 4.2 seconds and waits for the script font. WebGL starts after that reveal, caps device pixel ratio at 1.5, renders at 30 fps and pauses off-screen and in background tabs.
+- The signature follows 19 curved pen-centre strokes over 5.4 seconds, using local vector letterforms with no web-font swap. WebGL starts after that reveal, caps device pixel ratio at 1.5, renders at 30 fps and pauses off-screen and in background tabs.
 - JavaScript-free visitors can use the PDF or email link. This is a static site; external libraries and web fonts require an internet connection.
 
 Performance scores depend on hosting, device, connection and browser; Lighthouse targets are not presented as measured results.
@@ -85,6 +85,7 @@ Performance scores depend on hosting, device, connection and browser; Lighthouse
 ## Included source and artwork
 
 Every working source file is included in full. The site itself uses native HTML, CSS and ES modules. SVG identity artwork is editable in vector tools. Campaign images are raster assets; image text and photography are not separate design layers. The PDF is a compact portfolio handout, not an editable slide deck.
+
 
 
 

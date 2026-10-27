@@ -64,3 +64,12 @@
 .work{overflow-anchor:none}
 .gallery-mode .project-art{height:min(48vw,62svh);aspect-ratio:auto;max-height:none}
 @media(max-width:650px){.gallery-mode .project-art{height:60svh}}
+/* One reversible visibility layer; child intro animations cannot hide the hero. */
+.hero-content{position:absolute;inset:0;opacity:var(--hero-visibility,1);will-change:opacity}
+/* A locally drawn vector signature; no opacity or wipe reveal. */
+.hero h1{width:clamp(320px,40vw,650px);padding:0;line-height:0}
+.signature-vector,.signature-fallback{display:block;width:100%;height:auto;overflow:visible}
+.signature-fallback{visibility:hidden;animation:show-signature-fallback 0s 2s forwards}
+@keyframes show-signature-fallback{to{visibility:visible}}
+@media(max-width:650px){.hero h1{width:82vw;padding:0}}
+@media(prefers-reduced-motion:reduce){.signature-fallback{visibility:visible;animation:none}}
