@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 // EDIT HERE: record tint, rotational speed, mouse response, rendering budget.
-const HERO = { color: '#F2A7C3', degreesPerSecond: 3, damping: .06, pixelRatio: 2 };
+const HERO = { color: '#F2A7C3', degreesPerSecond: 3, damping: .06, pixelRatio: 1.5, fps: 30 };
 export function initHero() {
   const canvas = document.querySelector('#vinyl-canvas');
   const host = document.querySelector('.vinyl-stage');
@@ -32,7 +32,7 @@ export function initHero() {
   const surface = surfaceCanvas.getContext('2d'); surface.fillStyle = HERO.color; surface.fillRect(0,0,2048,2048);
   for (let r=300;r<1020;r+=3.4) { surface.strokeStyle = r%13<5 ? 'rgba(145,40,93,.2)' : 'rgba(255,231,243,.3)'; surface.lineWidth = .8; surface.beginPath(); surface.arc(1024,1024,r,0,Math.PI*2); surface.stroke(); }
   const tint = new THREE.CanvasTexture(surfaceCanvas); tint.colorSpace = THREE.SRGBColorSpace;
-  const vinylMaterial = new THREE.MeshPhysicalMaterial({ color: '#f6b0d0', map:tint, roughness: .32, metalness: .05, transmission: .08, thickness: .08, clearcoat: .6, clearcoatRoughness: .3, iridescence: .06, iridescenceIOR: 1.2, bumpMap: bump, bumpScale: .035, side: THREE.DoubleSide, envMapIntensity: .6 });
+  const vinylMaterial = new THREE.MeshPhysicalMaterial({ color: '#f6b0d0', map:tint, roughness: .32, metalness: .05, transmission: 0, thickness: .08, clearcoat: .6, clearcoatRoughness: .3, iridescence: .06, iridescenceIOR: 1.2, bumpMap: bump, bumpScale: .035, side: THREE.DoubleSide, envMapIntensity: .6 });
   const face = new THREE.Mesh(new THREE.RingGeometry(.053, 1.55, 160), vinylMaterial); spinner.add(face);
   const edge = new THREE.Mesh(new THREE.CylinderGeometry(1.55,1.55,.024,160,1,true),vinylMaterial);
   edge.rotation.x = Math.PI/2; edge.position.z = -.012; spinner.add(edge);
@@ -52,6 +52,7 @@ export function initHero() {
   const resize = new ResizeObserver(size); resize.observe(host); size();
   function render(t) {
     frame = 0; if (!visible || document.hidden) return;
+    if (last && t-last < 1000/HERO.fps-1) { frame = requestAnimationFrame(render); return; }
     const dt = Math.min((t - (last || t)) / 1000, .05); last = t; elapsed += dt;
     const tx = fine ? -pointer.y : Math.sin(elapsed * .22) * .055;
     const ty = fine ? pointer.x : Math.cos(elapsed * .17) * .07;

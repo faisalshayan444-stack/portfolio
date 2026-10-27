@@ -45,7 +45,7 @@ The published directory is `dist/`, assembled from the same complete static file
 1. **Palette:** the variables at the beginning of `css/styles.css` control white, ink, rose, gold and the light/dark section system.
 2. **Hero word:** change `SETTINGS.heroWord` in `js/main.js`. Change the initial `<h1>` in `index.html` too for a matching no-JavaScript view.
 3. **Vinyl colour:** change `HERO.color` at the beginning of `js/hero3d.js`. Update the rose stops in `assets/images/vinyl.svg` to match the static fallback.
-4. **Marquee copy:** edit both identical spans inside `.marquee-track` in `index.html`, plus the accessible services label on the parent.
+4. **Hero copy:** edit `.hero-story` in `index.html` to update the editorial statement beside the record sleeve.
 5. **Project data:** edit the exported `projects` array in `js/portfolio.js`. Images are resolved from `assets/work/` using the filename without `.webp`. Keep `js/image-sizes.js` in sync with replacement image sizes.
 
 ## Name, contact and social links
@@ -64,12 +64,12 @@ All projects are identified as **independent concepts**. The campaign review fig
 
 ## Motion and accessibility
 
-- GSAP 3.12.5 + ScrollTrigger + Flip, Lenis 1.1.20 and Three.js 0.169.0 are pinned on jsDelivr. Google Fonts uses `display=swap`.
+- GSAP 3.12.5 + ScrollTrigger, Lenis 1.1.20 and Three.js 0.169.0 are pinned on jsDelivr. Google Fonts uses `display=swap`.
 - The session preloader runs once. The menu, filters, native modal dialog, Escape key, focus return and focus containment support keyboard use.
-- The desktop gallery can pin and scroll horizontally. Mobile uses a native swipe gallery.
-- Reduced-motion visitors receive the static SVG vinyl, instant reveals, no preloader, no parallax and a stationary services strip.
+- The gallery stays in normal page flow, with native sideways scrolling, keyboard focus and previous/next arrows. Mobile also supports swiping.
+- Reduced-motion visitors receive the static SVG vinyl, instant reveals, no preloader, no parallax.
 - If WebGL or its CDN fails, the static record remains visible. If animation libraries fail, the core content, gallery, filters, menu and email links still work.
-- WebGL caps device pixel ratio at 2 and pauses off-screen and in background tabs.
+- The signature reveal lasts 4.2 seconds and waits for the script font. WebGL starts after that reveal, caps device pixel ratio at 1.5, renders at 30 fps and pauses off-screen and in background tabs.
 - JavaScript-free visitors can use the PDF or email link. This is a static site; external libraries and web fonts require an internet connection.
 
 Performance scores depend on hosting, device, connection and browser; Lighthouse targets are not presented as measured results.
@@ -85,6 +85,8 @@ Performance scores depend on hosting, device, connection and browser; Lighthouse
 ## Included source and artwork
 
 Every working source file is included in full. The site itself uses native HTML, CSS and ES modules. SVG identity artwork is editable in vector tools. Campaign images are raster assets; image text and photography are not separate design layers. The PDF is a compact portfolio handout, not an editable slide deck.
+
+
 
 
 

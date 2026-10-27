@@ -19,7 +19,7 @@ export function initPortfolio({ gsap, ST, reduced }) {
   const grid = document.querySelector('#project-grid');
   const dialog = document.querySelector('#case-dialog');
   const content = dialog.querySelector('.case-content');
-  let filter = 'All', view = 'grid', opener = null, current = null, transition = null, galleryTrigger = null;
+  let filter = 'All', view = 'grid', opener = null, current = null, transition = null;
   const cards = projects.map((p, i) => {
     const card = document.createElement('article'); card.className = 'project-card'; card.style.setProperty('--ratio', p.ratio); card.dataset.category = p.category;
     card.innerHTML = `<button class="project-open" aria-label="View ${escape(p.title)} — ${escape(p.discipline)}"><div class="project-art"><img src="${root+p.cover}.webp" alt="${escape(p.title)}: ${escape(p.discipline.toLowerCase())}" ${dimensions(p.cover)} loading="lazy" decoding="async"><span class="project-reveal"><span>${escape(p.title)} / ${escape(p.category)}</span><span>View project ↗</span></span></div></button><div class="project-meta"><div><h3>${escape(p.title)}</h3><p>${escape(p.discipline)}</p></div><span>0${i+1} / ${p.year}</span></div>`;
@@ -33,28 +33,55 @@ export function initPortfolio({ gsap, ST, reduced }) {
     }
     revealObserver.unobserve(e.target);
   }), { threshold: .1 }); cards.forEach(c => revealObserver.observe(c));
-  function refreshGallery() {
-    galleryTrigger?.kill(); galleryTrigger = null;
-    grid.scrollLeft = 0;
-    if (view === 'gallery' && ST && gsap && !reduced && innerWidth > 900) {
-      const distance = grid.scrollWidth - grid.clientWidth;
-      if (distance > 0) galleryTrigger = gsap.to(grid, { scrollLeft: () => grid.scrollWidth-grid.clientWidth, ease: 'none', scrollTrigger: { trigger: grid, start: 'top 100px', end: () => `+=${grid.scrollWidth-grid.clientWidth}`, pin: true, scrub: 1, invalidateOnRefresh: true } }).scrollTrigger;
-    }
-    ST?.refresh();
+  // Native horizontal scrolling keeps the document flow stable when switching views.
+  const galleryNav = document.createElement('div'); galleryNav.className = 'gallery-navigation'; galleryNav.hidden = true;
+  galleryNav.innerHTML = '<span class="label">Scroll sideways to explore</span><div><button type="button" aria-label="Previous projects">←</button><button type="button" aria-label="Next projects">→</button></div>';
+  grid.before(galleryNav);
+  const previous = galleryNav.querySelector('[aria-label="Previous projects"]');
+  const next = galleryNav.querySelector('[aria-label="Next projects"]');
+  function updateArrows() {
+    previous.disabled = grid.scrollLeft <= 2;
+    next.disabled = grid.scrollLeft >= grid.scrollWidth-grid.clientWidth-2;
   }
+  function refreshGallery(anchorTop) {
+    galleryNav.hidden = view !== 'gallery';
+    grid.tabIndex = view === 'gallery' ? 0 : -1;
+    grid.setAttribute('aria-label', view === 'gallery' ? 'Selected projects, horizontal gallery' : 'Selected projects');
+    requestAnimationFrame(() => {
+      updateArrows(); document.dispatchEvent(new Event('portfolio:layout')); ST?.refresh();
+      if (typeof anchorTop === 'number') {
+        const delta = document.querySelector('.work-toolbar').getBoundingClientRect().top-anchorTop;
+        if (Math.abs(delta) > .5) document.dispatchEvent(new CustomEvent('portfolio:scroll-adjust', { detail: { delta } }));
+      }
+    });
+  }
+  function moveGallery(direction) {
+    const first = cards.find(card => !card.hidden);
+    if (first) grid.scrollBy({ left: direction*(first.getBoundingClientRect().width+24), behavior: reduced ? 'instant' : 'smooth' });
+  }
+  previous.addEventListener('click', () => moveGallery(-1)); next.addEventListener('click', () => moveGallery(1));
+  grid.addEventListener('scroll', updateArrows, { passive: true });
   document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => {
-    const state = gsap && window.Flip && !reduced ? window.Flip.getState(cards.filter(c => !c.hidden)) : null;
+    const anchorTop = document.querySelector('.work-toolbar').getBoundingClientRect().top;
+    gsap?.killTweensOf(cards);
     filter = button.dataset.filter;
     document.querySelectorAll('.filter').forEach(b => { const on = b === button; b.classList.toggle('is-active', on); b.setAttribute('aria-pressed', String(on)); });
     cards.forEach(c => c.hidden = filter !== 'All' && c.dataset.category !== filter);
+    grid.classList.toggle('is-filtered', filter !== 'All');
+    grid.scrollLeft = 0;
     const count = cards.filter(c => !c.hidden).length;
     document.querySelector('.work-count').textContent = `${String(count).padStart(2,'0')} ${count===1?'project':'projects'}`;
-    if (state) window.Flip.from(state, { duration: .65, ease: 'power2.inOut', absolute: true, onComplete: refreshGallery }); else refreshGallery();
+    if (gsap && !reduced) gsap.fromTo(cards.filter(c=>!c.hidden), { opacity: .5 }, { opacity: 1, duration: .3, clearProps: 'opacity' });
+    refreshGallery(anchorTop);
   }));
   document.querySelectorAll('.view-toggle').forEach(button => button.addEventListener('click', () => {
+    if (view === button.dataset.view) return;
+    const anchorTop = document.querySelector('.work-toolbar').getBoundingClientRect().top;
+    gsap?.killTweensOf(cards);
+    gsap?.set(cards, { clearProps: 'transform,opacity' });
     view = button.dataset.view;
     document.querySelectorAll('.view-toggle').forEach(b => { b.classList.toggle('is-active', b === button); b.setAttribute('aria-pressed', String(b === button)); });
-    grid.classList.toggle('gallery-mode', view === 'gallery'); refreshGallery();
+    grid.classList.toggle('gallery-mode', view === 'gallery'); grid.scrollLeft = 0; refreshGallery(anchorTop);
   }));
   let resizeTimer; window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(refreshGallery, 250); });
   function renderCase(p) {

@@ -3,14 +3,15 @@ import { initPortfolio } from './portfolio.js';
 // EDIT HERE: identity, availability, motion and optional social destinations.
 export const SETTINGS = {
   name: 'Shayan', city: 'Karachi', timezone: 'Asia/Karachi', email: 'faisalshayan444@gmail.com',
-  heroWord: 'Portfolio', preloaderDuration: 2.2, smoothDuration: 1.2,
+  heroWord: 'Portfolio', signatureDuration: 4.2, preloaderDuration: 2.2, smoothDuration: 1.2,
   socials: { Instagram: null, Behance: null, LinkedIn: null }
 };
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.querySelector('.hero h1').textContent = SETTINGS.heroWord;
+if (!reduced) document.querySelector('.hero h1').style.clipPath = 'inset(0 100% 0 -20%)';
 const gsap = window.gsap;
 const ST = window.ScrollTrigger;
-if (gsap && ST) gsap.registerPlugin(ST, window.Flip);
+if (gsap && ST) gsap.registerPlugin(ST);
 let lenis;
 if (window.Lenis && !reduced) {
   lenis = new window.Lenis({ duration: SETTINGS.smoothDuration, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), anchors: false });
@@ -25,18 +26,27 @@ function lock(reason, state) {
   if (locks.size) lenis?.stop(); else lenis?.start();
 }
 document.addEventListener('portfolio:lock', e => lock(e.detail.reason, e.detail.locked));
+document.addEventListener('portfolio:layout', () => lenis?.resize());
+document.addEventListener('portfolio:scroll-adjust', e => {
+  const top = scrollY + e.detail.delta;
+  if (lenis) lenis.scrollTo(top, { immediate: true, force: true });
+  else window.scrollTo({ top, behavior: 'instant' });
+});
 
 function animateHero() {
   const title = document.querySelector('.hero h1');
-  if (!gsap || reduced) return;
+  if (!gsap || reduced) { title.style.clipPath = ''; return Promise.resolve(); }
   // Keep positioning in responsive CSS; only the reveal mask is animated.
-  gsap.fromTo(title, { clipPath: 'inset(0 100% 0 -20%)' }, { clipPath: 'inset(0 -20% 0 -20%)', duration: 1.6, ease: 'power3.out' });
-  gsap.fromTo('.track-marker, .hero-side, .hero-top-note, .hero-edition', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 1.1, stagger: .08, ease: 'power3.out', clearProps: 'transform' });
+  title.style.willChange = 'clip-path';
+  return new Promise(resolve => {
+    gsap.fromTo(title, { clipPath: 'inset(0 100% 0 -20%)' }, { clipPath: 'inset(0 -20% 0 -20%)', duration: SETTINGS.signatureDuration, ease: 'power1.inOut', clearProps: 'clipPath,willChange', onComplete: resolve });
+    gsap.fromTo('.track-marker, .hero-side, .hero-top-note, .hero-edition', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 1.1, stagger: .08, ease: 'power3.out', clearProps: 'transform' });
+  });
 }
 async function preloader() {
   let seen = false;
   try { seen = sessionStorage.getItem('shayan-intro') === 'seen'; } catch { /* Storage may be restricted by the browser. */ }
-  if (reduced || seen || !gsap) { animateHero(); return; }
+  if (reduced || seen || !gsap) return animateHero();
   document.body.classList.add('is-loading'); lock('intro', true);
   const counter = { value: 0 };
   await new Promise(resolve => {
@@ -48,7 +58,7 @@ async function preloader() {
   });
   document.body.classList.remove('is-loading'); lock('intro', false);
   try { sessionStorage.setItem('shayan-intro', 'seen'); } catch { /* Intro still completes without session storage. */ }
-  animateHero();
+  return animateHero();
 }
 
 // Accessible navigation: focus is contained in the full-screen overlay.
@@ -115,23 +125,6 @@ document.querySelectorAll('.hero,.about,.work,.process,.contact').forEach(el => 
 const processObserver = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle('is-lit', e.isIntersecting)), { threshold: .55 });
 document.querySelectorAll('.process-steps li').forEach(el => processObserver.observe(el));
 
-// Marquee changes speed and direction with scroll velocity.
-const marquee = document.querySelector('.marquee-track');
-let offset = 0, lastY = scrollY, direction = 1, speed = .35, lastTime = 0;
-function moveMarquee(t) {
-  if (!reduced && !document.hidden) {
-    const dt = Math.min((t - (lastTime || t)) / 16.67, 3);
-    const delta = scrollY - lastY; lastY = scrollY;
-    if (Math.abs(delta) > .2) direction = delta > 0 ? 1 : -1;
-    speed += ((.35 + Math.min(Math.abs(delta) * .08, 3)) - speed) * .08;
-    const width = marquee.scrollWidth / 2;
-    offset = width ? (offset + speed * direction * dt + width) % width : 0;
-    marquee.style.transform = `translateX(${-offset}px)`;
-  }
-  lastTime = t; requestAnimationFrame(moveMarquee);
-}
-if (!reduced) requestAnimationFrame(moveMarquee);
-
 function initCursor() {
   if (!matchMedia('(hover: hover) and (pointer: fine)').matches || reduced) return;
   const ring = document.querySelector('.cursor-ring');
@@ -171,8 +164,18 @@ for (const [label, url] of Object.entries(SETTINGS.socials)) {
   const link = document.createElement('a'); link.textContent = label; link.href = url; link.target = '_blank'; link.rel = 'noopener noreferrer'; details.append(link);
 }
 initPortfolio({ gsap, ST, reduced }); initCursor(); initMagnetism(); updateClock(); setInterval(updateClock, 1000);
-preloader();
-// Optional WebGL is loaded after the first paint; the SVG record is always available.
-if (!reduced) import('./hero3d.js').then(m => m.initHero()).catch(() => document.documentElement.classList.add('webgl-unavailable'));
+async function startExperience() {
+  // Font swaps and shader compilation must not interrupt the signature reveal.
+  if (document.fonts) await Promise.race([
+    document.fonts.load('160px "Pinyon Script"', SETTINGS.heroWord).catch(() => {}),
+    new Promise(resolve => setTimeout(resolve, 3000))
+  ]);
+  await preloader();
+  if (reduced) return;
+  const loadRecord = () => import('./hero3d.js').then(m => m.initHero()).catch(() => document.documentElement.classList.add('webgl-unavailable'));
+  if ('requestIdleCallback' in window) window.requestIdleCallback(loadRecord, { timeout: 1200 });
+  else setTimeout(loadRecord, 100);
+}
+startExperience();
 document.fonts.ready.then(() => ST?.refresh());
 window.addEventListener('load', () => ST?.refresh());
