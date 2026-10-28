@@ -2,17 +2,306 @@ import { imageSizes } from './image-sizes.js';
 // EDIT HERE: all project content and image paths. These are self-initiated concepts,
 // not commissioned client work or verified campaign results.
 export const projects = [
-  { id: 'orvane-print', title: 'ORVANE / The Print Edition', category: 'Print', discipline: 'Print design · Brand collateral', year: '2026', ratio: '3/2', cover: 'orvane-print-set', gallery: ['orvane-flyer','orvane-cards','orvane-brochure-outside','orvane-brochure-inside'], captions: { 'orvane-flyer': 'A5 flyer / 148 × 210 mm trim, 3 mm bleed, vector typography and 300 dpi preview.', 'orvane-cards': 'Business card / Front and back, 90 × 50 mm trim with 3 mm bleed.', 'orvane-brochure-outside': 'A4 tri-fold / Outside spread. Equal concept panels; final fold allowance is vendor-dependent.', 'orvane-brochure-inside': 'A4 tri-fold / Inside spread with scent notes, lifestyle imagery, and the concept collection.' }, downloads: [{label:'Download A5 flyer',file:'ORVANE_Print_01_Flyer.pdf'},{label:'Download business card',file:'ORVANE_Print_02_BusinessCard.pdf'},{label:'Download tri-fold brochure',file:'ORVANE_Print_03_Brochure.pdf'}], brief: 'An ivory, black, and champagne print system for the fictional ORVANE fragrance identity. The set includes an A5 flyer, a double-sided business card, and a six-panel A4 brochure. Delivered as print-ready concept PDFs with 3 mm bleed and crop marks, embedded fonts, and CMYK imagery. Gold is simulated in process colour; paper, ink profile, and production fold allowance are confirmed with the print vendor.', tools: 'Vector typography and layout, CMYK prepress, embedded fonts, PDF proofing, and an AI-assisted stationery presentation mockup. All displayed brand and offer details are concept content.' },
-  { id: 'fragrance-editions', title: 'Sévra & Aurelle', category: 'Perfume', discipline: 'Fragrance campaigns · Editorial design', year: '2026', ratio: '1/1', cover: 'sevra-silk', gallery: ['aurelle-light'], captions: { 'aurelle-light': 'Aurelle / Fresh Oud — light, glass, and an ivory palette.' }, brief: 'Two self-initiated fragrance campaigns with distinct identities. Sévra uses black silk and champagne gold; Aurelle pairs cream stone with sunlight through frosted glass. Both explore product photography, expressive typography, and a restrained advertising layout.', tools: 'AI-assisted product photography, fictional brand naming, campaign typography, and layout direction.' },
-  { id: 'orvane', title: 'ORVANE / After Dusk', category: 'Perfume', discipline: 'Product identity · E-commerce · Packaging', year: '2026', ratio: '1/1', cover: 'orvane-gift', gallery: ['orvane-master','orvane-contents','orvane-ribbon'], captions: { 'orvane-master': 'Product master / Transparent background and blank label before branding.', 'orvane-contents': 'Packaging study / Ivory carton, 50 ml bottle, sample vial, and care card.', 'orvane-ribbon': 'Material detail / Grosgrain ribbon and textured presentation packaging.' }, brief: 'A self-initiated identity and e-commerce concept for a fictional fragrance brand. Dark glass, brushed gold, ivory paper, a handwritten fragrance name, and a single iris create the visual world of After Dusk. The selected images show the campaign, the product master, packaging contents, and material detail.', tools: 'AI-assisted product and packaging photography, reference-led art direction, brand naming, and editorial composition.' },
-  { id: 'oud-noir', title: 'Oud Noir', category: 'Perfume', discipline: 'Art direction · Campaign imagery', year: '2026', ratio: '4/5', cover: 'oud-leaves', gallery: ['oud-crown','oud-heritage','oud-packaging'], brief: 'A fragrance world built from amber light, tactile tobacco leaves and quiet black glass. A study in making a product feel considered before a single word is read.', tools: 'Art direction, AI-assisted image creation, image refinement and campaign composition.' },
-  { id: 'noor-atelier', title: 'Noor Atelier', category: 'Fashion', discipline: 'Fashion · Social campaign', year: '2026', ratio: '1/1', cover: 'noor-editorial', gallery: ['noor-eid','noor-outdoor','noor-classic'], brief: 'An editorial campaign concept for a contemporary abaya label. Rich black, delicate gold embroidery and sunlit cream create a visual language that moves from collection launch to seasonal promotion.', tools: 'Campaign art direction, AI-assisted imagery, typographic hierarchy and social format adaptation.' },
-  { id: 'rise-above', title: 'Rise Above', category: 'Sneakers', discipline: 'Product storytelling · Ad creative', year: '2026', ratio: '4/5', cover: 'sneaker-type', gallery: ['sneaker-clean','sneaker-detail','sneaker-type'], brief: 'A weightless product campaign that turns a simple sneaker into the hero. A clean sky, vivid laces and confident type bring a fresh perspective to everyday style.', tools: 'Creative concept, AI-assisted product photography, copywriting and advertising layout.' },
-  { id: 'creator-edition', title: 'The Creator Edition', category: 'Social', discipline: 'Creator templates · Social systems', year: '2026', ratio: '4/3', cover: 'creator-duo', gallery: ['creator-noor','creator-oud','creator-duo'], brief: 'A paired template system for creator collaborations. Generous image space, a clear code area and two restrained palettes give each partnership a consistent visual home.', tools: 'Template design, brand adaptation, spacing systems and Story-format composition.' },
-  { id: 'studio-notes', title: 'Studio Notes', category: 'Social', discipline: 'Visual identity · Brand guidelines', year: '2026', ratio: '4/3', cover: 'brand-notes', gallery: ['brand-notes','brand-type','brand-palette'], brief: 'A personal identity study in rhythm, restraint and repeat play. Rose, warm paper and confident type form a compact visual system for an independent creative practice.', tools: 'Identity design, typography selection, palette development and SVG artwork.' },
-  { id: 'fresh-expression', title: 'A Fresh Expression', category: 'Perfume', discipline: 'E-commerce · Web campaign', year: '2026', ratio: '4/5', cover: 'oud-tropical', gallery: ['oud-banner','oud-fresh-type','oud-sky'], brief: 'A brighter chapter for Oud Noir, built around frosted glass and a vivid orange accent. A responsive visual direction spanning product imagery, social advertising and a wide web hero.', tools: 'Art direction, AI-assisted photography, headline development and format adaptation.' },
-  { id: 'campaign-review', title: 'The Campaign Review', category: 'Decks', discipline: 'Presentation design · Information design', year: '2026', ratio: '16/9', cover: 'campaign-deck', gallery: ['deck-cover','campaign-deck','deck-detail'], brief: 'A minimal presentation direction with an editorial typographic hierarchy. The supplied sample metrics are demonstration content, presented with clear labels and a restrained chart.', tools: 'Presentation layout, data hierarchy, chart design and typographic styling.' },
-  { id: 'noir-objects', title: 'Noir Objects', category: 'Perfume', discipline: 'Packaging · Product identity', year: '2026', ratio: '4/5', cover: 'oud-packaging', gallery: ['oud-packaging','packaging-detail','oud-heritage'], brief: 'A packaging concept translating the Oud Noir atmosphere into physical objects. Charcoal paper, warm foil and an ivory presentation box turn opening the fragrance into a considered ritual.', tools: 'Packaging art direction, AI-assisted mockup imagery and material exploration.' }
+  {
+    "id": "cloudline-campaign",
+    "title": "Cloudline / Walk on Clouds",
+    "category": "Sneakers",
+    "discipline": "Product art direction · Social campaign · Print",
+    "year": "2026",
+    "ratio": "4/5",
+    "cover": "cloudline-social-01",
+    "gallery": [
+      "cloudline-social-02",
+      "cloudline-social-03",
+      "cloudline-ad-meta-a",
+      "cloudline-ad-meta-b",
+      "cloudline-ad-tiktok",
+      "cloudline-flyer"
+    ],
+    "captions": {
+      "cloudline-social-02": "New Drop / 1080 × 1080 studio post. Geometric set, precise product shadows, and one orange accent.",
+      "cloudline-social-03": "Made for every step / 1080 × 1350 street editorial, focused on the footwear.",
+      "cloudline-ad-meta-a": "Meta test A / 1080 × 1350. Offer-led headline: Your First Pair, 20% Off. Fictional promotion.",
+      "cloudline-ad-meta-b": "Meta test B / 1080 × 1350. Light on your feet. Same image, offer context, and placement for a headline comparison.",
+      "cloudline-ad-tiktok": "Jump in / 1080 × 1920 vertical still. Text stays inside the brief’s top and bottom safe areas.",
+      "cloudline-flyer": "A5 flyer / 148 × 210 mm trim. CMYK PDF, embedded fonts, 3 mm bleed, crop marks, and 356.2 ppi placed photography."
+    },
+    "downloads": [
+      {
+        "label": "Open A5 flyer PDF",
+        "file": "Cloudline_Flyer.pdf"
+      }
+    ],
+    "brief": "A self-initiated campaign for fictional sneaker brand Cloudline. White leather, orange laces, pale-blue sole detail, and bold navy typography connect sky, studio, and street images. The campaign extends into three social posts, two Meta headline tests, a vertical still ad, and an A5 flyer. Brand contacts and promotional offers are illustrative concept content.",
+    "tools": "Consistent-reference AI-assisted product photography, Poppins ExtraBold and Inter typography, vector layouts, format adaptation, CMYK prepress, and PDF proofing. The visual concept does not claim a real product launch or tested performance."
+  },
+  {
+    "id": "studio-notes",
+    "title": "Studio Notes",
+    "category": "Social",
+    "discipline": "Visual identity · Brand guidelines",
+    "year": "2026",
+    "ratio": "4/3",
+    "cover": "brand-notes",
+    "gallery": [
+      "brand-notes",
+      "brand-type",
+      "brand-palette"
+    ],
+    "brief": "A personal identity study in rhythm, restraint and repeat play. Rose, warm paper and confident type form a compact visual system for an independent creative practice.",
+    "tools": "Identity design, typography selection, palette development and SVG artwork."
+  },
+  {
+    "id": "campaign-review",
+    "title": "The Campaign Review",
+    "category": "Decks",
+    "discipline": "Presentation design · Information design",
+    "year": "2026",
+    "ratio": "16/9",
+    "cover": "campaign-deck",
+    "gallery": [
+      "deck-cover",
+      "campaign-deck",
+      "deck-detail"
+    ],
+    "brief": "A minimal presentation direction with an editorial typographic hierarchy. The supplied sample metrics are demonstration content, presented with clear labels and a restrained chart.",
+    "tools": "Presentation layout, data hierarchy, chart design and typographic styling."
+  },
+  {
+    "id": "cloudline-listing",
+    "title": "Cloudline / The Product Set",
+    "category": "Sneakers",
+    "discipline": "E-commerce · Listing imagery · Information design",
+    "year": "2026",
+    "ratio": "1/1",
+    "cover": "cloudline-listing-01-main",
+    "gallery": [
+      "cloudline-listing-02-benefits",
+      "cloudline-listing-03-detail",
+      "cloudline-listing-04-lifestyle",
+      "cloudline-listing-05-colors",
+      "cloudline-listing-06-compare",
+      "cloudline-listing-07-style"
+    ],
+    "captions": {
+      "cloudline-listing-02-benefits": "02 / Feature infographic. Leather upper, padded collar, textured sole, and colour-pop laces. 2000 × 2000 JPEG delivery.",
+      "cloudline-listing-03-detail": "03 / Sole and stitching detail. Tread-design concept; no slip-test or safety certification claim.",
+      "cloudline-listing-04-lifestyle": "04 / Street lifestyle. Comfort is fictional product positioning, not a verified test result.",
+      "cloudline-listing-05-colors": "05 / Colour and size range. Orange, Sky, and White/Navy. Size ranges are illustrative and are not presented as mapped US/EU equivalents.",
+      "cloudline-listing-06-compare": "06 / Own-brand range comparison. Colour differences replace unsupported claims against generic competitors.",
+      "cloudline-listing-07-style": "07 / Styling guide. Casual, Smart, and Sporty, with the sneaker as the subject."
+    },
+    "brief": "A seven-image retail listing concept, delivered as 2000 × 2000 JPEGs. A single shoe facing left on pure white opens the set, followed by visible features, material detail, lifestyle, colours and sizes, a range comparison, and styling. Comparing the fictional brand’s own colourways keeps the information specific without inventing competitor disadvantages.",
+    "tools": "Reference-led AI-assisted footwear photography, vector callouts and comparison table, exact-size JPEG exports, and white-background checks. Product specifications, sizing, and positioning are illustrative; marketplace acceptance and physical performance are not claimed."
+  },
+  {
+    "id": "orvane-print",
+    "title": "ORVANE / The Print Edition",
+    "category": "Print",
+    "discipline": "Print design · Brand collateral",
+    "year": "2026",
+    "ratio": "3/2",
+    "cover": "orvane-print-set",
+    "gallery": [
+      "orvane-flyer",
+      "orvane-cards",
+      "orvane-brochure-outside",
+      "orvane-brochure-inside"
+    ],
+    "captions": {
+      "orvane-flyer": "A5 flyer / 148 × 210 mm trim, 3 mm bleed, vector typography and 300 dpi preview.",
+      "orvane-cards": "Business card / Front and back, 90 × 50 mm trim with 3 mm bleed.",
+      "orvane-brochure-outside": "A4 tri-fold / Outside spread. Equal concept panels; final fold allowance is vendor-dependent.",
+      "orvane-brochure-inside": "A4 tri-fold / Inside spread with scent notes, lifestyle imagery, and the concept collection."
+    },
+    "downloads": [
+      {
+        "label": "Download A5 flyer",
+        "file": "ORVANE_Print_01_Flyer.pdf"
+      },
+      {
+        "label": "Download business card",
+        "file": "ORVANE_Print_02_BusinessCard.pdf"
+      },
+      {
+        "label": "Download tri-fold brochure",
+        "file": "ORVANE_Print_03_Brochure.pdf"
+      }
+    ],
+    "brief": "An ivory, black, and champagne print system for the fictional ORVANE fragrance identity. The set includes an A5 flyer, a double-sided business card, and a six-panel A4 brochure. Delivered as print-ready concept PDFs with 3 mm bleed and crop marks, embedded fonts, and CMYK imagery. Gold is simulated in process colour; paper, ink profile, and production fold allowance are confirmed with the print vendor.",
+    "tools": "Vector typography and layout, CMYK prepress, embedded fonts, PDF proofing, and an AI-assisted stationery presentation mockup. All displayed brand and offer details are concept content."
+  },
+  {
+    "id": "cloudline-identity",
+    "title": "Cloudline / Identity & Creator Kit",
+    "category": "Social",
+    "discipline": "Brand identity · Creator templates · Guidelines",
+    "year": "2026",
+    "ratio": "16/9",
+    "cover": "cloudline-brandguide",
+    "gallery": [
+      "cloudline-creator-system",
+      "cloudline-template-story-sky",
+      "cloudline-template-story-white",
+      "cloudline-template-story-navy"
+    ],
+    "captions": {
+      "cloudline-creator-system": "Three Story variants / Sky, White, and Navy. Creators swap the photo and the code, everything else stays on brand.",
+      "cloudline-template-story-sky": "Sky / 1080 × 1920. An 800 × 1000 photo placeholder with 40 px corners and a thin orange outline.",
+      "cloudline-template-story-white": "White / Same geometry and orange code pill. Editable local SVG source is included.",
+      "cloudline-template-story-navy": "Navy / A dark variant with the same placement and rounded photo area."
+    },
+    "downloads": [
+      {
+        "label": "Open Sky template SVG",
+        "file": "Cloudline_Template_Story_Sky.svg"
+      },
+      {
+        "label": "Open White template SVG",
+        "file": "Cloudline_Template_Story_White.svg"
+      },
+      {
+        "label": "Open Navy template SVG",
+        "file": "Cloudline_Template_Story_Navy.svg"
+      }
+    ],
+    "brief": "A compact brand system connects the collection to creator collaborations. A lowercase wordmark, three-circle cloud icon, four colours, and two typefaces establish the identity. Three matching Story templates reserve the same photo area and discount-code position. Handles and promotional codes are fictional placeholders.",
+    "tools": "Vector wordmark and cloud icon, Poppins ExtraBold and Inter typography, palette specification, brand guideline, local SVG template masters, and PNG exports. Layout shapes and the photo placeholder are editable; outlined text is controlled through the supplied layout source. These are local design files."
+  },
+  {
+    "id": "rise-above",
+    "title": "Rise Above",
+    "category": "Sneakers",
+    "discipline": "Product storytelling · Ad creative",
+    "year": "2026",
+    "ratio": "4/5",
+    "cover": "sneaker-type",
+    "gallery": [
+      "sneaker-clean",
+      "sneaker-detail",
+      "sneaker-type"
+    ],
+    "brief": "A weightless product campaign that turns a simple sneaker into the hero. A clean sky, vivid laces and confident type bring a fresh perspective to everyday style.",
+    "tools": "Creative concept, AI-assisted product photography, copywriting and advertising layout."
+  },
+  {
+    "id": "creator-edition",
+    "title": "The Creator Edition",
+    "category": "Social",
+    "discipline": "Creator templates · Social systems",
+    "year": "2026",
+    "ratio": "4/3",
+    "cover": "creator-duo",
+    "gallery": [
+      "creator-noor",
+      "creator-oud",
+      "creator-duo"
+    ],
+    "brief": "A paired template system for creator collaborations. Generous image space, a clear code area and two restrained palettes give each partnership a consistent visual home.",
+    "tools": "Template design, brand adaptation, spacing systems and Story-format composition."
+  },
+  {
+    "id": "fragrance-editions",
+    "title": "Sévra & Aurelle",
+    "category": "Perfume",
+    "discipline": "Fragrance campaigns · Editorial design",
+    "year": "2026",
+    "ratio": "1/1",
+    "cover": "sevra-silk",
+    "gallery": [
+      "aurelle-light"
+    ],
+    "captions": {
+      "aurelle-light": "Aurelle / Fresh Oud — light, glass, and an ivory palette."
+    },
+    "brief": "Two self-initiated fragrance campaigns with distinct identities. Sévra uses black silk and champagne gold; Aurelle pairs cream stone with sunlight through frosted glass. Both explore product photography, expressive typography, and a restrained advertising layout.",
+    "tools": "AI-assisted product photography, fictional brand naming, campaign typography, and layout direction."
+  },
+  {
+    "id": "orvane",
+    "title": "ORVANE / After Dusk",
+    "category": "Perfume",
+    "discipline": "Product identity · E-commerce · Packaging",
+    "year": "2026",
+    "ratio": "1/1",
+    "cover": "orvane-gift",
+    "gallery": [
+      "orvane-master",
+      "orvane-contents",
+      "orvane-ribbon"
+    ],
+    "captions": {
+      "orvane-master": "Product master / Transparent background and blank label before branding.",
+      "orvane-contents": "Packaging study / Ivory carton, 50 ml bottle, sample vial, and care card.",
+      "orvane-ribbon": "Material detail / Grosgrain ribbon and textured presentation packaging."
+    },
+    "brief": "A self-initiated identity and e-commerce concept for a fictional fragrance brand. Dark glass, brushed gold, ivory paper, a handwritten fragrance name, and a single iris create the visual world of After Dusk. The selected images show the campaign, the product master, packaging contents, and material detail.",
+    "tools": "AI-assisted product and packaging photography, reference-led art direction, brand naming, and editorial composition."
+  },
+  {
+    "id": "oud-noir",
+    "title": "Oud Noir",
+    "category": "Perfume",
+    "discipline": "Art direction · Campaign imagery",
+    "year": "2026",
+    "ratio": "4/5",
+    "cover": "oud-leaves",
+    "gallery": [
+      "oud-crown",
+      "oud-heritage",
+      "oud-packaging"
+    ],
+    "brief": "A fragrance world built from amber light, tactile tobacco leaves and quiet black glass. A study in making a product feel considered before a single word is read.",
+    "tools": "Art direction, AI-assisted image creation, image refinement and campaign composition."
+  },
+  {
+    "id": "fresh-expression",
+    "title": "A Fresh Expression",
+    "category": "Perfume",
+    "discipline": "E-commerce · Web campaign",
+    "year": "2026",
+    "ratio": "4/5",
+    "cover": "oud-tropical",
+    "gallery": [
+      "oud-banner",
+      "oud-fresh-type",
+      "oud-sky"
+    ],
+    "brief": "A brighter chapter for Oud Noir, built around frosted glass and a vivid orange accent. A responsive visual direction spanning product imagery, social advertising and a wide web hero.",
+    "tools": "Art direction, AI-assisted photography, headline development and format adaptation."
+  },
+  {
+    "id": "noir-objects",
+    "title": "Noir Objects",
+    "category": "Perfume",
+    "discipline": "Packaging · Product identity",
+    "year": "2026",
+    "ratio": "4/5",
+    "cover": "oud-packaging",
+    "gallery": [
+      "oud-packaging",
+      "packaging-detail",
+      "oud-heritage"
+    ],
+    "brief": "A packaging concept translating the Oud Noir atmosphere into physical objects. Charcoal paper, warm foil and an ivory presentation box turn opening the fragrance into a considered ritual.",
+    "tools": "Packaging art direction, AI-assisted mockup imagery and material exploration."
+  },
+  {
+    "id": "noor-atelier",
+    "title": "Noor Atelier",
+    "category": "Fashion",
+    "discipline": "Fashion · Social campaign",
+    "year": "2026",
+    "ratio": "1/1",
+    "cover": "noor-editorial",
+    "gallery": [
+      "noor-eid",
+      "noor-outdoor",
+      "noor-classic"
+    ],
+    "brief": "An editorial campaign concept for a contemporary abaya label. Rich black, delicate gold embroidery and sunlit cream create a visual language that moves from collection launch to seasonal promotion.",
+    "tools": "Campaign art direction, AI-assisted imagery, typographic hierarchy and social format adaptation."
+  }
 ];
 // Resolve relative to this module so case studies also work under deployed subpaths.
 const root = new URL('../assets/work/', import.meta.url).href;

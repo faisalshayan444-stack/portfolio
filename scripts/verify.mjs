@@ -4,7 +4,10 @@ import assert from 'node:assert/strict';
 import { projects } from '../js/portfolio.js';
 import { imageSizes } from '../js/image-sizes.js';
 const root=path.resolve(import.meta.dirname,'..');
-assert.ok(projects.length>=11,'Includes selected fragrance and print projects');
+assert.equal(projects.length,14,'Includes the three Cloudline case studies');
+for(const id of ['cloudline-campaign','cloudline-listing','cloudline-identity'])assert.ok(projects.some(p=>p.id===id),`Missing Cloudline case study: ${id}`);
+assert.deepEqual(projects.slice(0,3).map(p=>p.category),['Sneakers','Social','Decks'],'Opening selection shows varied existing disciplines');
+assert.ok(!projects.some(p=>['noor-product-edit','noor-creator-system'].includes(p.id)),'New clothing projects remain outside the portfolio');
 assert.equal(new Set(projects.map(p=>p.id)).size,projects.length,'Unique project identifiers');
 for(const p of projects){
   assert.ok(Array.isArray(p.gallery),`${p.title}: valid gallery`);

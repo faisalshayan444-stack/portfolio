@@ -19,6 +19,82 @@ export const imageSizes = {
     1440,
     810
   ],
+  "cloudline-ad-meta-a": [
+    1080,
+    1350
+  ],
+  "cloudline-ad-meta-b": [
+    1080,
+    1350
+  ],
+  "cloudline-ad-tiktok": [
+    1080,
+    1920
+  ],
+  "cloudline-brandguide": [
+    1800,
+    1013
+  ],
+  "cloudline-creator-system": [
+    1800,
+    1200
+  ],
+  "cloudline-flyer": [
+    1749,
+    2481
+  ],
+  "cloudline-listing-01-main": [
+    1800,
+    1800
+  ],
+  "cloudline-listing-02-benefits": [
+    1800,
+    1800
+  ],
+  "cloudline-listing-03-detail": [
+    1800,
+    1800
+  ],
+  "cloudline-listing-04-lifestyle": [
+    1800,
+    1800
+  ],
+  "cloudline-listing-05-colors": [
+    1800,
+    1800
+  ],
+  "cloudline-listing-06-compare": [
+    1800,
+    1800
+  ],
+  "cloudline-listing-07-style": [
+    1800,
+    1800
+  ],
+  "cloudline-social-01": [
+    1080,
+    1350
+  ],
+  "cloudline-social-02": [
+    1080,
+    1080
+  ],
+  "cloudline-social-03": [
+    1080,
+    1350
+  ],
+  "cloudline-template-story-navy": [
+    1080,
+    1920
+  ],
+  "cloudline-template-story-sky": [
+    1080,
+    1920
+  ],
+  "cloudline-template-story-white": [
+    1080,
+    1920
+  ],
   "creator-duo": [
     1440,
     1080
