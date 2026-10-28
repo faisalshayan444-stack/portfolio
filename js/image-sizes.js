@@ -55,9 +55,25 @@ export const imageSizes = {
     941,
     1671
   ],
+  "orvane-brochure-inside": [
+    1800,
+    1273
+  ],
+  "orvane-brochure-outside": [
+    1800,
+    1273
+  ],
+  "orvane-cards": [
+    1800,
+    1200
+  ],
   "orvane-contents": [
     1254,
     1254
+  ],
+  "orvane-flyer": [
+    1749,
+    2481
   ],
   "orvane-gift": [
     1254,
@@ -66,6 +82,10 @@ export const imageSizes = {
   "orvane-master": [
     1254,
     1254
+  ],
+  "orvane-print-set": [
+    1536,
+    1024
   ],
   "orvane-ribbon": [
     1254,

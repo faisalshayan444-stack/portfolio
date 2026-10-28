@@ -66,6 +66,7 @@
 @media(max-width:650px){.gallery-mode .project-art{height:60svh}}
 /* One reversible visibility layer; child intro animations cannot hide the hero. */
 .hero-content{position:absolute;inset:0;opacity:var(--hero-visibility,1);will-change:opacity}
+.case-downloads:empty{display:none}
 /* A locally drawn vector signature; no opacity or wipe reveal. */
 .hero h1{width:clamp(320px,40vw,650px);padding:0;line-height:0}
 .signature-vector,.signature-fallback{display:block;width:100%;height:auto;overflow:visible}

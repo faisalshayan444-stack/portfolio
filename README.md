@@ -1,6 +1,6 @@
 # Shayan — A portfolio, on repeat.
 
-A complete, buildless portfolio for Shayan, a graphic designer based in Karachi. The signature hero pairs a rose vinyl record emerging from a white archival sleeve, flowing Portfolio calligraphy, and editorial copy on pure white. Ten independent campaign projects from this conversation populate the site, with optimised WebP artwork, full-screen case studies and a downloadable nine-page PDF.
+A complete, buildless portfolio for Shayan, a graphic designer based in Karachi. The signature hero pairs a rose vinyl record emerging from a white archival sleeve, flowing Portfolio calligraphy, and editorial copy on pure white. Eleven independent campaign projects from this conversation populate the site, with optimised WebP artwork, full-screen case studies and a downloadable nine-page PDF.
 
 ## Run locally
 
@@ -91,3 +91,5 @@ Every working source file is included in full. The site itself uses native HTML,
 
 
 
+
+The Print Edition includes three downloadable CMYK concept PDFs with 3 mm bleed, crop marks, and embedded fonts. The reel was omitted at the user's request.

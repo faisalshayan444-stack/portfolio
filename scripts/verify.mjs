@@ -4,10 +4,11 @@ import assert from 'node:assert/strict';
 import { projects } from '../js/portfolio.js';
 import { imageSizes } from '../js/image-sizes.js';
 const root=path.resolve(import.meta.dirname,'..');
-assert.ok(projects.length>=10,'Includes the selected fragrance projects');
+assert.ok(projects.length>=11,'Includes selected fragrance and print projects');
 assert.equal(new Set(projects.map(p=>p.id)).size,projects.length,'Unique project identifiers');
 for(const p of projects){
   assert.ok(Array.isArray(p.gallery),`${p.title}: valid gallery`);
+  for(const download of p.downloads || [])assert.ok(fs.existsSync(path.join(root,'assets/print',download.file)),`Missing PDF: ${download.file}`);
   for(const image of [p.cover,...p.gallery]){
     assert.ok(fs.existsSync(path.join(root,'assets/work',`${image}.webp`)),`Missing image: ${image}`);
     assert.ok(imageSizes[image]?.every(n=>n>0),`Missing dimensions: ${image}`);
