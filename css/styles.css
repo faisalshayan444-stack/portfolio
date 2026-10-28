@@ -73,3 +73,5 @@
 @keyframes show-signature-fallback{to{visibility:visible}}
 @media(max-width:650px){.hero h1{width:82vw;padding:0}}
 @media(prefers-reduced-motion:reduce){.signature-fallback{visibility:visible;animation:none}}
+
+.case-gallery figcaption{padding:18px 3px 0;color:var(--muted);font-size:13px;line-height:1.6}.case-gallery figure:has(figcaption){max-height:none}.case-gallery figure:has(figcaption) img{height:auto}.case-video{display:block;width:100%;max-height:85vh;margin:30px 0;background:#0b0b0b}.case-downloads{display:flex;flex-wrap:wrap;gap:16px;margin:28px 0}.case-downloads a{padding:10px 18px;border:1px solid var(--hairline);font-size:13px}

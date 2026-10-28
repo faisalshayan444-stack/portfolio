@@ -1,6 +1,6 @@
 # Shayan — A portfolio, on repeat.
 
-A complete, buildless portfolio for Shayan, a graphic designer based in Karachi. The signature hero pairs a rose vinyl record emerging from a white archival sleeve, flowing Portfolio calligraphy, and editorial copy on pure white. Eight real campaign concepts from this conversation populate the site, with optimised WebP artwork, full-screen case studies and a downloadable nine-page PDF.
+A complete, buildless portfolio for Shayan, a graphic designer based in Karachi. The signature hero pairs a rose vinyl record emerging from a white archival sleeve, flowing Portfolio calligraphy, and editorial copy on pure white. Ten independent campaign projects from this conversation populate the site, with optimised WebP artwork, full-screen case studies and a downloadable nine-page PDF.
 
 ## Run locally
 
@@ -54,7 +54,7 @@ The supplied identity is Shayan, Karachi, `faisalshayan444@gmail.com`. To change
 
 Instagram, Behance and LinkedIn destinations were not supplied, so the site does not invent profiles or render dead links. Add your actual HTTPS profile URLs in `SETTINGS.socials` and the links appear automatically.
 
-The availability month and Karachi clock update automatically through `Intl.DateTimeFormat`. Update the PDF separately when changing your portfolio; the included PDF is the finished version of these eight concepts.
+The availability month and Karachi clock update automatically through `Intl.DateTimeFormat`. Update the PDF separately when changing your portfolio; the included PDF remains the original eight-project handout; the website includes later additions.
 
 ## Replace artwork
 

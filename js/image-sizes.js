@@ -1,4 +1,8 @@
 export const imageSizes = {
+  "aurelle-light": [
+    1122,
+    1402
+  ],
   "brand-notes": [
     1440,
     1080
@@ -51,6 +55,22 @@ export const imageSizes = {
     941,
     1671
   ],
+  "orvane-contents": [
+    1254,
+    1254
+  ],
+  "orvane-gift": [
+    1254,
+    1254
+  ],
+  "orvane-master": [
+    1254,
+    1254
+  ],
+  "orvane-ribbon": [
+    1254,
+    1254
+  ],
   "oud-banner": [
     1440,
     810
@@ -86,6 +106,10 @@ export const imageSizes = {
   "packaging-detail": [
     852,
     884
+  ],
+  "sevra-silk": [
+    1254,
+    1254
   ],
   "sneaker-clean": [
     1122,
